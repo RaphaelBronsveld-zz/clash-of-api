@@ -59,10 +59,10 @@ class Clash
      */
     public function setupUrl($url){
         return $this->getHttpClient()
-                    ->request('GET', $url,
-                    ['headers' => ['Accept' => 'application/json',
-                                   'authorization' => 'Bearer ' .
-                    $this->getAccessToken()]]);
+                    ->request('GET', $url, ['headers' => [
+                                        'Accept' => 'application/json',
+                                        'authorization' => 'Bearer ' .
+               $this->getAccessToken()]]);
     }
 
     /**

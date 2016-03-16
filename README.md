@@ -79,13 +79,23 @@ public function getClan($id){
 
 ##### Methods
 ```php
-    public function getLeagues(){};
-    public function getClan($id){};
-    public function getClans($params){};
-    public function getLocation($id){};
-    public function getLocations(){};
-
+public function getLeagues(){};
+public function getClan($id){};
+public function getClans($params){};
+public function getLocation($id){};
+public function getLocations(){};
 ``` 
+
+##### Objects
+Everything returned is an object, so that makes it super easy to access different data.
+For the different properties just check the documentation at https://developer.clashofclans.com/#/documentation
+
+```php
+$clan  = app()->make('clash')
+            ->getClan('RJVPRCQ');
+
+$members = $clan->memberList;
+```
 
 ### Copyright/License
 Copyright 2016 [Raphael Bronsveld](https://github.com/RaphaelBronsveld) - [MIT Licensed](http://RaphaelBronsveld.mit-license.org) 

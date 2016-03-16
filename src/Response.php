@@ -12,7 +12,6 @@
 namespace Raphaelb\ClashOfApi;
 
 class Response {
-
     /**
      * Make sure we respond properly to the given param.
      * Just return an array with results you can loop.
@@ -27,7 +26,6 @@ class Response {
          * @var \GuzzleHttp\Psr7\Response $response
          */
         $response =  json_decode($response->getBody()->getContents(), true);
-
         if(array_key_exists('items', $response)){
             return json_decode(json_encode($response))->items;
         }

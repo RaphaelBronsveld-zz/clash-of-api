@@ -23,21 +23,10 @@ class ClashOfClansController extends Controller
      */
     public function index()
     {
-       $client = new Clash();
-       $clans = $client->getClans([
-           'name' => 'K!ngs Throne',
-           'limit' => '5'
-       ]);
-
         // Resolve from the container.
-        $client2 = app()->make('clash')
-                        ->getClan('RJVPRCQ');
-
-        // Facade way.
-        $client3 = \Clash::getClans([
-            'name' => 'Test',
-            'limit' => '29'
-        ]);
+        $clans  = app()->make('clash')
+                      ->getClans(['name' => 'Test',
+                                  'limit' => '10']);
 
         return view('clashofapi::clans', compact('clans'));
     }
