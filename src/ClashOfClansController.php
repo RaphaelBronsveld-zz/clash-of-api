@@ -13,6 +13,7 @@ namespace Raphaelb\ClashOfApi;
 
 use App\Http\Controllers\Controller;
 
+
 class ClashOfClansController extends Controller
 {
     /**
@@ -22,22 +23,21 @@ class ClashOfClansController extends Controller
      */
     public function index()
     {
-//        $client = new Clash();
-//        $clans = $client->getClans([
-//            'name' => 'K!ngs Throne',
-//            'limit' => '5'
-//        ]);
+       $client = new Clash();
+       $clans = $client->getClans([
+           'name' => 'K!ngs Throne',
+           'limit' => '5'
+       ]);
 
-//        $client2 = app()->make('clash')
-//                        ->getClans(['name'  => 'Clans',
-//                                    'limit' => '20']);
+        // Resolve from the container.
+        $client2 = app()->make('clash')
+                        ->getClan('RJVPRCQ');
 
-        $client2 = \ClashOfClans::getClans([
+        // Facade way.
+        $client3 = \Clash::getClans([
             'name' => 'Test',
             'limit' => '29'
         ]);
-
-        dd($client2);
 
         return view('clashofapi::clans', compact('clans'));
     }

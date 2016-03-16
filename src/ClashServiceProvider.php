@@ -38,6 +38,5 @@ class ClashServiceProvider extends ServiceProvider
         $this->app->make('Raphaelb\ClashOfApi\ClashOfClansController');
 
         $this->app->bind('clash', 'Raphaelb\ClashOfApi\Clash');
-
     }
 }

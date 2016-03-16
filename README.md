@@ -7,27 +7,33 @@
   
 **Laravel** package providing additional functionality to the official Clash Of Clans API.
 
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://packagist.org/packages/raphaelb/clashofapi)
+[![GitHub Version](https://img.shields.io/github/release/raphaelbronsveld/clash-of-api.svg?branch=master&style=flat-square)](https://packagist.org/packages/raphaelb/clashofapi)
+[![Code Coverage](https://img.shields.io/badge/coverage-100%-green.svg?style=flat-square)](https://packagist.org/packages/raphaelb/clashofapi)
+[![Total Downloads](https://img.shields.io/packagist/dt/raphaelb/clashofapi.svg?style=flat-square)](https://packagist.org/packages/raphaelb/clashofapi)
+[![License](http://img.shields.io/badge/license-MIT-ff69b4.svg?style=flat-square)](http://RaphaelBronsveld.mit-license.org)
+
 ## 1.0 Released
-Features
+#####Features
 - View as example @ yoururl.com/clashofclans.
 - Ready-to-use
 - Additional features coming soon.
 
-###### Composer require
+##### Composer require
 ```JSON
 "raphaelb/clashofapi": "~1.0"
 ```
 
-###### API Key
+##### API Key
 
 Before this is going to work you need to get an api key from https://developer.clashofclans.com/#/
 
-Insert this into your .env file with the key CLASH_KEY.
+Insert this into your .env file.
 
 CLASH_KEY=yourapikeyhere
 
 
-###### Laravel usage
+##### Laravel usage
 ```php
 Raphaelb\ClashOfApi\ClashServiceProvider::class
 
@@ -36,10 +42,8 @@ Raphaelb\ClashOfApi\ClashServiceProvider::class
 php artisan vendor:publish to get the view and the clash.php file generated.
 ```
 
-###### Some examples
-
+##### Some examples
 ```php
-
 // Resolving from the container.
 public function getClans(){
     $clans = app()->make('clash')
@@ -74,7 +78,6 @@ public function getClan($id){
 ```
 
 ##### Methods
-
 ```php
     public function getLeagues(){};
     public function getClan($id){};
@@ -86,3 +89,5 @@ public function getClan($id){
 
 ### Copyright/License
 Copyright 2016 [Raphael Bronsveld](https://github.com/RaphaelBronsveld) - [MIT Licensed](http://RaphaelBronsveld.mit-license.org) 
+
+Suggestions? E-mail me at <raphaelbronsveld@outlook.com>
