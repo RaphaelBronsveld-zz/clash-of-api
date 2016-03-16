@@ -32,11 +32,12 @@ class ClashOfClansController extends Controller
 //                        ->getClans(['name'  => 'Clans',
 //                                    'limit' => '20']);
 
-        $client2 = Clash2::getClans([
-            'name' => 'Test'
+        $client2 = \ClashOfClans::getClans([
+            'name' => 'Test',
+            'limit' => '29'
         ]);
 
-        dd('baladfas');
+        dd($client2);
 
         return view('clashofapi::clans', compact('clans'));
     }
