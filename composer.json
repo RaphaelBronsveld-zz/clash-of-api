@@ -1,0 +1,23 @@
+{
+    "name": "raphaelb/clashofapi",
+    "description": "Laravel package for the usage of the official Clash of Clans API.",
+    "keywords": ["laravel","clashofclans", "api"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Raphael",
+            "email": "raphaelbronsveld@outlook.com",
+            "homepage": "https://raphaelbronsveld.com/",
+            "role": "Backend Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Raphaelb\\ClashOfApi\\": "src"
+        }
+    },
+
+    "require": {
+        "php": ">=5.4.0"
+    }
+}
