@@ -28,10 +28,6 @@ class ClashOfClansController extends Controller
                        ->getClans(['name' => 'test',
                                    'limit' => '10']);
 
-        // Or just a single clan.
-
-        $clan = \Clash::getClan('LGRQPCJG');
-
         return view('clashofapi::clans', compact('clans'));
     }
 }
