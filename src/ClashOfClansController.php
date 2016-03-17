@@ -13,11 +13,11 @@ namespace Raphaelb\ClashOfApi;
 
 use App\Http\Controllers\Controller;
 
-
 class ClashOfClansController extends Controller
 {
     /**
-     * index method
+     * Example to be found at yoururl.com/clashofclans. For more
+     * please check the index.md file in the src folder.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -25,8 +25,12 @@ class ClashOfClansController extends Controller
     {
         // Resolve from the container.
         $clans  = app()->make('clash')
-                      ->getClans(['name' => 'Test',
-                                  'limit' => '10']);
+                       ->getClans(['name' => 'test',
+                                   'limit' => '10']);
+
+        // Or just a single clan.
+
+        $clan = \Clash::getClan('LGRQPCJG');
 
         return view('clashofapi::clans', compact('clans'));
     }

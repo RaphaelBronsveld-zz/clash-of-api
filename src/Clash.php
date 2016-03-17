@@ -12,6 +12,9 @@
 namespace Raphaelb\ClashOfApi;
 
 use GuzzleHttp\Client;
+use Raphaelb\ClashOfApi\Clan\Clan;
+use Raphaelb\ClashOfApi\League\League;
+use Raphaelb\ClashOfApi\Location\Location;
 
 class Clash
 {
@@ -20,14 +23,14 @@ class Clash
     protected $httpClient;
 
     /**
-     * Client constructor.
+     * Clash class constructor.
      */
     public function __construct(){
         $this->setAccessToken();
     }
 
     /**
-     * setAccesstoken method
+     * Setting Accesstoken
      */
     public function setAccessToken(){
         $this->accesstoken = config('clash.key');
@@ -45,6 +48,7 @@ class Clash
 
     /**
      * Base url for API v1.
+     *
      * @return string
      */
     public function baseUrl(){
@@ -54,15 +58,17 @@ class Clash
     /**
      * @param string $url
      *
-     * @return resource
+     * @return array
      * @internal param $url
      */
     public function setupUrl($url){
-        return $this->getHttpClient()
+        $response = $this->getHttpClient()
                     ->request('GET', $url, ['headers' => [
                                         'Accept' => 'application/json',
                                         'authorization' => 'Bearer ' .
                $this->getAccessToken()]]);
+
+        return json_decode($response->getBody()->getContents(), true);
     }
 
     /**
@@ -82,62 +88,73 @@ class Clash
 
     /**
      * Get leagues.
-     * @return mixed
+     *
+     * @return \Raphaelb\ClashOfApi\League\League
      */
     public function getLeagues(){
         $response =  $this->setupUrl('leagues');
-        return $this->properResponse($response);
+        return new League($response);
     }
 
     /**
      * Get Clans by Search input.
+     *
      * @param $input
-     * @return mixed
+     * @return \Raphaelb\ClashOfApi\Clan\Clan
      */
     public function getClans($input){
+
+        /*
+		* $input array can have these indexes:
+		* name (string)
+		* warFrequency (string, {"always", "moreThanOncePerWeek", "oncePerWeek", "lessThanOncePerWeek", "never", "unknown"})
+		* locationId (integer)
+		* minMembers (integer)
+		* maxMembers (integer)
+		* minClanPoints (integer)
+		* minClanLevel (integer)
+		* limit (integer)
+		* after (integer)
+		* before (integer)
+		For more information, take a look at the official documentation: https://developer.clashofclans.com/#/documentation
+		*/
+
         $input = is_array($input) ? $input : ['name' => $input];
 
         $response = $this->setupUrl('clans?' . http_build_query($input));
-        return $this->properResponse($response);
+        return new Clan($response);
     }
 
     /**
      * Get clan by given id.
+     *
      * @param $id
-     * @return mixed
+     * @return \Raphaelb\ClashOfApi\Clan\Clan
      */
     public function getClan($id){
         $response = $this->setupUrl('clans/' . urlencode('#' .$id));
-        return $this->properResponse($response);
+        return new Clan($response);
     }
 
     /**
      * Get locations.
-     * @return mixed
+     *
+     * @return \Raphaelb\ClashOfApi\Location\Location
      */
     public function getLocations(){
         $response = $this->setupUrl('locations');
-        return $this->properResponse($response);
+        return new Location($response);
     }
 
     /**
      * Get location by given id.
-     * @return mixed
+     *
+     * @param $id
+     *
+     * @return \Raphaelb\ClashOfApi\Location\Location
      */
     public function getLocation($id){
         $response = $this->setupUrl('locations/'.$id);
-        return $this->properResponse($response);
-    }
-
-    /**
-     * 1 method to get a 'normal' response back.
-     * properResponse method
-     *
-     * @param $response
-     *
-     * @return mixed
-     */
-    public function properResponse($response){
-        return Response::responseToObject($response);
+        return new Location($response);
     }
 }

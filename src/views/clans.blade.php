@@ -62,10 +62,13 @@
         <div class="github">Follow: <a target="blank" href="https://github.com/raphaelbronsveld"><i class="fa fa-github fa-2x"></i></a></div>
             <div class="clashcontainer">
                 <div class="clashtitle">Clans</div>
-                        @foreach($clans as $clan)
+                        @foreach($clans->data as $clan)
                             <ul>
-                                <li>Clanname: {{ $clan->name }}<br>
-                                    Members: {{ $clan->members }}</li>
+                                <li>
+                                    Clanname: {{ $clan->name }}
+                                <br>
+                                    Members: {{ $clan->members }}
+                                </li>
                             </ul>
                         @endforeach
             </div>

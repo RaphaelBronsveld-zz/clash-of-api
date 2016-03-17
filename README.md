@@ -3,7 +3,7 @@
 
 | **Laravel** | 5.1 |
 |:-----------:|:----:|
-| Clash of API | v1.0 |
+| Clash of API | v2.0 |
   
 **Laravel** package providing additional functionality to the official Clash Of Clans API.
 
@@ -13,15 +13,15 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/raphaelb/clashofapi.svg?style=flat-square)](https://packagist.org/packages/raphaelb/clashofapi)
 [![License](http://img.shields.io/badge/license-MIT-ff69b4.svg?style=flat-square)](http://RaphaelBronsveld.mit-license.org)
 
-## 1.0 Released
+## 2.0 Released
 #####Features
 - View as example @ yoururl.com/clashofclans.
 - Ready-to-use
-- Additional features coming soon.
+- Additional features.
 
 ##### Composer require
 ```JSON
-"raphaelb/clashofapi": "~1.0"
+"raphaelb/clashofapi": "~2.0"
 ```
 
 ##### API Key
@@ -39,7 +39,8 @@ Raphaelb\ClashOfApi\ClashServiceProvider::class
 
 'Clash' => Raphaelb\ClashOfApi\Facades\Clash::class
 
-php artisan vendor:publish to get the view and the clash.php file generated.
+// php artisan vendor:publish to get the view and the clash.php file generated.
+// Without this command it's not going to work.
 ```
 
 ##### Some examples
@@ -49,14 +50,15 @@ public function getClans(){
     $clans = app()->make('clash')
                     ->getClans(['name'  => 'Clans',
                                 'limit' => '20']);
+                                
     return view('yourview', compact('clans'));
 }
 
 // Facade way. 
-public function getLocations(){
-    $locations = \Clash::getLocations();
+public function getCountries(){
+    $countries = \Clash::getLocations()->getCountries();
     
-    return view('yourview', compact('locations'));
+    return view('yourview', compact('countries'));
 }
 
 public function getLeagues(){
@@ -66,36 +68,40 @@ public function getLeagues(){
     return view('yourview', compact('leagues'));
 }
 
-public function getClan($id){
+public function getClanLeaders($id){
     //Just an example. $id can be something you are requesting.
     $id = "LGRQPCJG";
     
     $clash = new Clash();
-    $leagues = $clash->getClan($id);
+    $leaders = $clash->getClan($id)
+                    ->getLeaders();
     
-    return view('yourview, compact('leagues'));
+    return view('yourview, compact('leaders'));
 }
 ```
 
-##### Methods
+##### General Methods
 ```php
 public function getLeagues(){};
 public function getClan($id){};
 public function getClans($params){};
 public function getLocation($id){};
 public function getLocations(){};
+
+// For the clan(s) object.
+public function getMemberList();
+public function getLocation();
+public function getMemberCount();
+public function getLeaders();
+
+// For the Location(s) object.
+public function getCountries();
+
+// For the League(s) object.
 ``` 
 
-##### Objects
-Everything returned is an object, so that makes it super easy to access different data.
-For the different properties just check the documentation at https://developer.clashofclans.com/#/documentation
-
-```php
-$clan  = app()->make('clash')
-            ->getClan('RJVPRCQ');
-
-$members = $clan->memberList;
-```
+##### In-depth examples
+Please check the index.md file located in the src folder.
 
 ### Copyright/License
 Copyright 2016 [Raphael Bronsveld](https://github.com/RaphaelBronsveld) - [MIT Licensed](http://RaphaelBronsveld.mit-license.org) 
