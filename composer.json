@@ -14,7 +14,10 @@
     "autoload": {
         "psr-4": {
             "Raphaelb\\ClashOfApi\\": "src"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
 
     "require": {

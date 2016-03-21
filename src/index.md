@@ -28,12 +28,27 @@ public function getCountries(){
     
     return view('pages.locations.countries.show', compact('countries'));
 }
+
+// Or just with the helper method
+public function getClans(){
+    // Accessing data property so we won't have to do that in our view file. 
+    // Looks cleaner that way.
+    $clans = clash()->getClans(['name' => 'test',
+                                        'limit' => '10'])->data;
+    
+    return view('yourview', compact('clans'));
+}
 ```
 
 What about views?
 
 ```html
-<!-- Multiple results are set into the data property. You have to loop through that. -->
+<!-- Results from clans, locations and leagues are set into the data property. 
+     You have to loop through that. 
+     If you are getting leaders, countries or members 
+     i'm already accessing the data property so you won't have to.
+     Really depends on what you are doing in your container. -->
+     
 @foreach($clans->data as $clan)
     <ul>
         <li>

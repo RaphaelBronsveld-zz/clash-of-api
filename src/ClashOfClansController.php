@@ -23,10 +23,9 @@ class ClashOfClansController extends Controller
      */
     public function index()
     {
-        // Resolve from the container.
-        $clans  = app()->make('clash')
-                       ->getClans(['name' => 'test',
-                                   'limit' => '10']);
+        // Using helper method.
+        $clans = clash()->getClans(['name' => 'test',
+                                    'limit' => '10'])->data;
 
         return view('clashofapi::clans', compact('clans'));
     }

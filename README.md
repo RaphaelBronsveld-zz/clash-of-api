@@ -3,7 +3,7 @@
 
 | **Laravel** | 5.1 |
 |:-----------:|:----:|
-| Clash of API | v2.0 |
+| Clash of API | v2.1 |
   
 **Laravel** package providing additional functionality to the official Clash Of Clans API.
 
@@ -13,15 +13,18 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/raphaelb/clashofapi.svg?style=flat-square)](https://packagist.org/packages/raphaelb/clashofapi)
 [![License](http://img.shields.io/badge/license-MIT-ff69b4.svg?style=flat-square)](http://RaphaelBronsveld.mit-license.org)
 
-## 2.0 Released
+## 2.1 Released
 #####Features
 - View as example @ yoururl.com/clashofclans.
 - Ready-to-use
 - Additional features.
+- Helper method clash().
+
+Work in progress.
 
 ##### Composer require
 ```JSON
-"raphaelb/clashofapi": "~2.0"
+"raphaelb/clashofapi": "~2.1"
 ```
 
 ##### API Key
@@ -49,7 +52,7 @@ Raphaelb\ClashOfApi\ClashServiceProvider::class
 public function getClans(){
     $clans = app()->make('clash')
                     ->getClans(['name'  => 'Clans',
-                                'limit' => '20']);
+                                'limit' => '20'])->data;
                                 
     return view('yourview', compact('clans'));
 }
@@ -63,7 +66,7 @@ public function getCountries(){
 
 public function getLeagues(){
     $clash = new Clash();
-    $leagues = $clash->getLeagues();
+    $leagues = $clash->getLeagues()->data;
     
     return view('yourview', compact('leagues'));
 }
@@ -76,8 +79,18 @@ public function getClanLeaders($id){
     $leaders = $clash->getClan($id)
                     ->getLeaders();
     
-    return view('yourview, compact('leaders'));
+    return view('yourview', compact('leaders'));
 }
+
+// Or just with the helper method
+public function getClans(){
+    
+    $clans = clash()->getClans(['name' => 'test',
+                                        'limit' => '10'])->data;
+    
+    return view('yourview', compact('clans'));
+}
+
 ```
 
 ##### General Methods

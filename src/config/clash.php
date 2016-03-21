@@ -1,6 +1,17 @@
 <?php
 
 return [
-    'key' => env('CLASH_KEY', 'No fallback key. Add the api key to your .env file.')
+
+    /*
+    |--------------------------------------------------------------------------
+    | Clash key
+    |--------------------------------------------------------------------------
+    |
+    | The link to your api key located in your .env file.
+    | CLASH_KEY=apikey
+    |
+    */
+
+    'key' => env('CLASH_KEY', '')
 ];
 
