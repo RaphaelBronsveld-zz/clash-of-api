@@ -21,6 +21,8 @@ class ClashServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom(__DIR__.'/views', 'clashofapi');
 
+        $this->registerHelpers();
+
         $this->publishes([
             __DIR__.'/views' => base_path('resources/views/raphaelb/clashofapi'),
             __DIR__.'/config/clash.php' => config_path('clash.php')
@@ -38,5 +40,13 @@ class ClashServiceProvider extends ServiceProvider
         $this->app->make('Raphaelb\ClashOfApi\ClashOfClansController');
 
         $this->app->bind('clash', 'Raphaelb\ClashOfApi\Clash');
+    }
+
+    /**
+     * Register helpers file
+     */
+    public function registerHelpers()
+    {
+        require_once __DIR__ . DIRECTORY_SEPARATOR. 'helpers.php';
     }
 }

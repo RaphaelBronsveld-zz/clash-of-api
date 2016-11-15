@@ -25,7 +25,7 @@ class ClashOfClansController extends Controller
     {
         // Using helper method.
         $clans = clash()->getClans(['name' => 'test',
-                                    'limit' => '10'])->data;
+                                    'limit' => '3'])->data;
 
         return view('clashofapi::clans', compact('clans'));
     }

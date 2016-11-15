@@ -29,14 +29,13 @@
             display: inline-block;
         }
         .title {
-            font-size: 96px;
+            font-size: 30px;
         }
 
         .clashtitle {
             font-size: 50px;
         }
         .footer {
-            padding-top: 50px;
             font-size: 40px;
         }
         .github {
@@ -57,9 +56,8 @@
 <body>
 <div class="container">
     <div id="app" class="content">
-        <div class="title">Clash Of Clans API</div>
-        <div class="footer">By Raphael Bronsveld</div>
-        <div class="github">Follow: <a target="blank" href="https://github.com/raphaelbronsveld"><i class="fa fa-github fa-2x"></i></a></div>
+        <div class="title"><h1>Clash Of Clans API</h1></div>
+        <div class="footer">By <a target="blank" href="https://github.com/raphaelbronsveld">Raphaël Bronsveld</a></div>
             <div class="clashcontainer">
                 <div class="clashtitle">Clans</div>
                         @foreach($clans as $clan)
