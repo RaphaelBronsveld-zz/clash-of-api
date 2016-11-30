@@ -17,15 +17,14 @@ class ClashOfClansController extends Controller
 {
     /**
      * Example to be found at yoururl.com/clashofclans. For more
-     * please check the index.md file in the src folder.
+     * please check the examples.md file in the src folder.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        // Using helper method.
         $clans = clash()->getClans(['name' => 'test',
-                                    'limit' => '3'])->data;
+                                    'limit' => '3']);
 
         return view('clashofapi::clans', compact('clans'));
     }

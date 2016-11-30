@@ -52,7 +52,7 @@ Raphaelb\ClashOfApi\ClashServiceProvider::class
 public function getClans(){
     $clans = app()->make('clash')
                     ->getClans(['name'  => 'Clans',
-                                'limit' => '20'])->data;
+                                'limit' => '20']);
                                 
     return view('yourview', compact('clans'));
 }
@@ -66,7 +66,7 @@ public function getCountries(){
 
 public function getLeagues(){
     $clash = new Clash();
-    $leagues = $clash->getLeagues()->data;
+    $leagues = $clash->getLeagues();
     
     return view('yourview', compact('leagues'));
 }
@@ -86,7 +86,7 @@ public function getClanLeaders($id){
 public function getClans(){
     
     $clans = clash()->getClans(['name' => 'test',
-                                        'limit' => '10'])->data;
+                                        'limit' => '10']);
     
     return view('yourview', compact('clans'));
 }
@@ -96,7 +96,7 @@ public function getClans(){
 ##### General Methods
 ```php
 public function getLeagues(){};
-public function getClan($id){};
+public function getClan($tag){};
 public function getClans($params){};
 public function getLocation($id){};
 public function getLocations(){};

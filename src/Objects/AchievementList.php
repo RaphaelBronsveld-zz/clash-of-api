@@ -9,19 +9,21 @@
  * file that was distributed with this source code.
  */
 
-namespace Raphaelb\ClashOfApi\League;
+namespace Raphaelb\ClashOfApi\Objects;
 
-use Raphaelb\ClashOfApi\AbstractResponse;
 
-class League extends AbstractResponse
+class AchievementList extends BaseObject
 {
+
     /**
-     * League constructor.
+     * Class relations.
      *
-     * @param $data
+     * @return array
      */
-    public function __construct($data)
+    public function relations()
     {
-        $this->data = $this->respondToArray($data);
+        return [
+            'indexed' => Achievement::class
+        ];
     }
 }

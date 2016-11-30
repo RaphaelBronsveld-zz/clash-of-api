@@ -38,10 +38,6 @@
         .footer {
             font-size: 40px;
         }
-        .github {
-            font-size: 2.5em;
-            text-decoration: none;
-        }
         .clashcontainer {
             padding-top: 30px;
             font-size: 30px;
@@ -60,15 +56,15 @@
         <div class="footer">By <a target="blank" href="https://github.com/raphaelbronsveld">Raphaël Bronsveld</a></div>
             <div class="clashcontainer">
                 <div class="clashtitle">Clans</div>
-                        @foreach($clans as $clan)
-                            <ul>
-                                <li>
-                                    Clanname: {{ $clan->name }}
-                                <br>
-                                    Tag: {{ $clan->tag }}
-                                </li>
-                            </ul>
-                        @endforeach
+                    @foreach($clans as $clan)
+                        <ul>
+                            <li>
+                                Clanname: {{ $clan->name }}
+                            <br>
+                                Tag: {{ $clan->tag }}
+                            </li>
+                        </ul>
+                    @endforeach
             </div>
         </div>
     </div>

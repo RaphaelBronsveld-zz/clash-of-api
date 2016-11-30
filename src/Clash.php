@@ -12,9 +12,12 @@
 namespace Raphaelb\ClashOfApi;
 
 use GuzzleHttp\Client;
-use Raphaelb\ClashOfApi\Clan\Clan;
-use Raphaelb\ClashOfApi\League\League;
-use Raphaelb\ClashOfApi\Location\Location;
+use Illuminate\Support\Collection;
+use Raphaelb\ClashOfApi\Objects\Clan;
+use Raphaelb\ClashOfApi\Objects\Player;
+use Raphaelb\ClashOfApi\Objects\WarLog;
+use Raphaelb\ClashOfApi\Objects\League;
+use Raphaelb\ClashOfApi\Objects\Location;
 
 class Clash
 {
@@ -56,19 +59,40 @@ class Clash
     }
 
     /**
-     * @param string $url
+     * Sends a request to the Clash Api and returns the response.
      *
+     * @param $method
+     * @param $endpoint
      * @return array
-     * @internal param $url
+     * @throws \Exception
      */
-    public function setupUrl($url){
-        $response = $this->getHttpClient()
-                    ->request('GET', $url, ['headers' => [
-                                        'Accept' => 'application/json',
-                                        'authorization' => 'Bearer ' .
-               $this->getAccessToken()]]);
+    public function sendRequest($method, $endpoint){
+        try {
+            $request = $this->getHttpClient()
+                ->request($method, $endpoint, ['headers' => [
+                    'Accept' => 'application/json',
+                    'authorization' => 'Bearer ' .
+                        $this->getAccessToken()
+                    ]
+                ]);
+            $data = json_decode($request->getBody()->getContents(), true);
 
-        return json_decode($response->getBody()->getContents(), true);
+            return $this->respondToArray($data);
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+    }
+
+    /**
+     * Make sure we respond properly to the given param.
+     * Just return an array with results you can loop.
+     *
+     * @param $array
+     * @return mixed
+     */
+    public function respondToArray(array $array)
+    {
+        return array_key_exists('items', $array) ? $array['items'] : $array;
     }
 
     /**
@@ -89,61 +113,83 @@ class Clash
     /**
      * Get leagues.
      *
-     * @return \Raphaelb\ClashOfApi\League\League
+     * @return \Raphaelb\ClashOfApi\Objects\League
      */
     public function getLeagues(){
-        $response =  $this->setupUrl('leagues');
+        $response =  $this->sendRequest('GET', 'leagues');
         return new League($response);
     }
 
     /**
      * Get Clans by Search input.
      *
-     * @param $input
-     * @return \Raphaelb\ClashOfApi\Clan\Clan
+     * name (string)
+     * warFrequency (string, {"always", "moreThanOncePerWeek", "oncePerWeek", "lessThanOncePerWeek", "never", "unknown"})
+     * locationId (integer)
+     * minMembers (integer)
+     * maxMembers (integer)
+     * minClanPoints (integer)
+     * minClanLevel (integer)
+     * limit (integer)
+     * after (integer)
+     * before (integer)
+     *
+     * @param $input array string
+     * @return Collection
      */
     public function getClans($input){
-
-        /*
-		* $input array can have these indexes:
-		* name (string)
-		* warFrequency (string, {"always", "moreThanOncePerWeek", "oncePerWeek", "lessThanOncePerWeek", "never", "unknown"})
-		* locationId (integer)
-		* minMembers (integer)
-		* maxMembers (integer)
-		* minClanPoints (integer)
-		* minClanLevel (integer)
-		* limit (integer)
-		* after (integer)
-		* before (integer)
-		For more information, take a look at the official documentation: https://developer.clashofclans.com/#/documentation
-		*/
-
         $input = is_array($input) ? $input : ['name' => $input];
 
-        $response = $this->setupUrl('clans?' . http_build_query($input));
-        return new Clan($response);
+        $data = $this->sendRequest('GET', 'clans?' . http_build_query($input));
+        $clans = [];
+
+        foreach($data as $clan){
+            $clans[] = new Clan($clan);
+        };
+
+        return collect($clans);
     }
 
     /**
-     * Get clan by given id.
+     * Get clan by given Clan Tag.
      *
-     * @param $id
-     * @return \Raphaelb\ClashOfApi\Clan\Clan
+     * @param $tag
+     * @return \Raphaelb\ClashOfApi\Objects\Clan
      */
-    public function getClan($id){
-        $response = $this->setupUrl('clans/' . urlencode('#' .$id));
-        return new Clan($response);
+    public function getClan($tag){
+        $data = $this->sendRequest('GET', 'clans/' . urlencode($tag));
+        return new Clan($data);
+    }
+
+    /**
+     * Get Warlog by given clan object or tag.
+     *
+     * @param $tag
+     * @return WarLog
+     */
+    public function getWarLog($tag)
+    {
+        $tag = $tag instanceof Clan ? $tag->getTag() : $tag;
+
+        $data = $this->sendRequest('GET', 'clans/'.urlencode($tag).'/warlog');
+
+        return new WarLog($data);
     }
 
     /**
      * Get locations.
      *
-     * @return \Raphaelb\ClashOfApi\Location\Location
+     * @return Collection
      */
     public function getLocations(){
-        $response = $this->setupUrl('locations');
-        return new Location($response);
+        $data = $this->sendRequest('GET', 'locations');
+        $locations = [];
+
+        foreach($data as $location) {
+            $locations[] = new Location($location);
+        }
+
+        return collect($locations);
     }
 
     /**
@@ -151,10 +197,22 @@ class Clash
      *
      * @param $id
      *
-     * @return \Raphaelb\ClashOfApi\Location\Location
+     * @return \Raphaelb\ClashOfApi\Objects\Location
      */
     public function getLocation($id){
-        $response = $this->setupUrl('locations/'.$id);
-        return new Location($response);
+        $data = $this->sendRequest('GET', 'locations/'.$id);
+        return new Location($data);
+    }
+
+    /**
+     * Get player by given tag.
+     *
+     * @param $tag
+     * @return Player
+     */
+    public function getPlayer($tag)
+    {
+        $data = $this->sendRequest('GET', 'players/'.urlencode($tag));
+        return new Player($data);
     }
 }
