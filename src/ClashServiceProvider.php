@@ -44,6 +44,7 @@ class ClashServiceProvider extends ServiceProvider
 
     /**
      * Register helpers file
+     *
      */
     public function registerHelpers()
     {

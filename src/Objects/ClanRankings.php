@@ -11,9 +11,8 @@
 
 namespace Raphaelb\ClashOfApi\Objects;
 
-class Player extends BaseObject
+class ClanRankings extends BaseObject
 {
-
     /**
      * Class relations.
      *
@@ -22,9 +21,7 @@ class Player extends BaseObject
     public function relations()
     {
         return [
-            'league'            => League::class,
-            'clan'              => Clan::class,
-            'achievements'      => AchievementList::class
+            'indexed' => Clan::class
         ];
     }
 }

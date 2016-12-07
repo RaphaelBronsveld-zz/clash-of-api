@@ -14,7 +14,10 @@ namespace Raphaelb\ClashOfApi;
 use GuzzleHttp\Client;
 use Illuminate\Support\Collection;
 use Raphaelb\ClashOfApi\Objects\Clan;
+use Raphaelb\ClashOfApi\Objects\ClanRankings;
 use Raphaelb\ClashOfApi\Objects\Player;
+use Raphaelb\ClashOfApi\Objects\PlayerRankings;
+use Raphaelb\ClashOfApi\Objects\Rankings;
 use Raphaelb\ClashOfApi\Objects\WarLog;
 use Raphaelb\ClashOfApi\Objects\League;
 use Raphaelb\ClashOfApi\Objects\Location;
@@ -202,6 +205,46 @@ class Clash
     public function getLocation($id){
         $data = $this->sendRequest('GET', 'locations/'.$id);
         return new Location($data);
+    }
+
+    /**
+     * Get location based rankinglist for players.
+     *
+     * @param $location
+     * @return PlayerRankings
+     */
+    public function getPlayerRankings($location)
+    {
+        $data = $this->getRankingsByType($location, 'players');
+
+        return new PlayerRankings($data);
+    }
+
+    /**
+     * Get location based rankinglist for clans.
+     *
+     * @param $location
+     * @return ClanRankings
+     */
+    public function getClanRankings($location)
+    {
+        $data = $this->getRankingsByType($location, 'clans');
+
+        return new ClanRankings($data);
+    }
+
+    /**
+     * Get rankingdata by given location and type.
+     *
+     * @param $location
+     * @param $type
+     * @return array
+     */
+    public function getRankingsByType($location, $type)
+    {
+        $id = $location instanceof Location ? $location->id : $location;
+
+        return $this->sendRequest('GET', 'locations/'.$id.'/rankings/'.$type);
     }
 
     /**
