@@ -13,7 +13,6 @@ namespace Raphaelb\ClashOfApi\Objects;
 
 class Location extends BaseObject
 {
-
     /**
      * Class relations.
      *

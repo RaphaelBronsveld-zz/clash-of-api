@@ -13,7 +13,6 @@ namespace Raphaelb\ClashOfApi\Objects;
 
 class Player extends BaseObject
 {
-
     /**
      * Class relations.
      *

@@ -14,7 +14,6 @@ namespace Raphaelb\ClashOfApi\Facades;
 use Illuminate\Support\Facades\Facade;
 
 class Clash extends Facade {
-
     /**
      * @return string
      */

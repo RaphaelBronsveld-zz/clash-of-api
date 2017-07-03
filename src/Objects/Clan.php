@@ -13,7 +13,6 @@ namespace Raphaelb\ClashOfApi\Objects;
 
 class Clan extends BaseObject
 {
-
     /**
      * Class relations.
      *
@@ -54,17 +53,19 @@ class Clan extends BaseObject
      *
      * @return array
      */
-    public function getLocation(){
+    public function getLocation()
+    {
         return $this->get('location');
     }
 
     /**
      * Get member count by given clan object.
      *
-     * @return string
+     * @return integer
      */
-    public function getMemberCount(){
-        return $this->get('members');
+    public function getMemberCount()
+    {
+        return (int)$this->get('members');
     }
 
     /**
@@ -72,7 +73,8 @@ class Clan extends BaseObject
      *
      * @return array
      */
-    public function getLeaders(){
+    public function getLeaders()
+    {
         return $this->getMembers()->filter(function($member, $key) {
                 return $member->role == 'leader' || $member->role == 'coLeader';
         });

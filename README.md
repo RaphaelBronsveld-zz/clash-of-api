@@ -20,8 +20,6 @@
 - Additional features.
 - Helper method clash().
 
-Work in progress.
-
 ##### Composer require
 ```JSON
 "raphaelb/clashofapi": "~2.1"
@@ -95,26 +93,26 @@ public function getClans(){
 
 ##### General Methods
 ```php
-public function getLeagues(){};
-public function getClan($tag){};
-public function getClans($params){};
-public function getLocation($id){};
-public function getLocations(){};
-
-// For the clan(s) object.
+public function getLeagues();
+public function getClan($tag);
+public function getClans($params);
+public function getWarlog($tag);
+public function getLocation($id);
+public function getLocations();
+public function getPlayerRankings($location);
+public function getClanRankings($location);
 public function getMemberList();
-public function getLocation();
 public function getMemberCount();
 public function getLeaders();
-
-// For the Location(s) object.
-public function getCountries();
-
-// For the League(s) object.
+public function getPlayer($tag)
 ``` 
 
 ##### In-depth examples
-Please check the index.md file located in the src folder.
+Please check the examples.md file located in the src folder.
+
+#### Todo list
+Custom exceptions. Move to a stable 3.0
+
 
 ### Copyright/License
 Copyright 2016 [Raphael Bronsveld](https://github.com/RaphaelBronsveld) - [MIT Licensed](http://RaphaelBronsveld.mit-license.org) 

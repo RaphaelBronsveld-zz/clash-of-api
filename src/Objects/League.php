@@ -13,7 +13,6 @@ namespace Raphaelb\ClashOfApi\Objects;
 
 class League extends BaseObject
 {
-
     /**
      * Class relations.
      *

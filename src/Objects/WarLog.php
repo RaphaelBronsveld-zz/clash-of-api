@@ -13,7 +13,6 @@ namespace Raphaelb\ClashOfApi\Objects;
 
 class WarLog extends BaseObject
 {
-
     /**
      * Class relations.
      *

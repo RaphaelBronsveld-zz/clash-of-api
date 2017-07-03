@@ -11,10 +11,8 @@
 
 namespace Raphaelb\ClashOfApi\Objects;
 
-
 class AchievementList extends BaseObject
 {
-
     /**
      * Class relations.
      *

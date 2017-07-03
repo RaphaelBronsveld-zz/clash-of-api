@@ -29,7 +29,6 @@ class ClashServiceProvider extends ServiceProvider
         ]);
     }
 
-
     /**
      * Register the service provider.
      *

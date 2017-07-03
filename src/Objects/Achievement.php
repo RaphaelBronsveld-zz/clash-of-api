@@ -11,10 +11,8 @@
 
 namespace Raphaelb\ClashOfApi\Objects;
 
-
 class Achievement extends BaseObject
 {
-
     /**
      * Class relations.
      *
@@ -22,6 +20,6 @@ class Achievement extends BaseObject
      */
     public function relations()
     {
-
+        //
     }
 }

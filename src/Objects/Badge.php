@@ -13,7 +13,6 @@ namespace Raphaelb\ClashOfApi\Objects;
 
 class Badge extends BaseObject
 {
-
     /**
      * Class relations.
      *

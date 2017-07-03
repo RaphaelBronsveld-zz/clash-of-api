@@ -14,13 +14,13 @@ namespace Raphaelb\ClashOfApi;
 use GuzzleHttp\Client;
 use Illuminate\Support\Collection;
 use Raphaelb\ClashOfApi\Objects\Clan;
-use Raphaelb\ClashOfApi\Objects\ClanRankings;
 use Raphaelb\ClashOfApi\Objects\Player;
-use Raphaelb\ClashOfApi\Objects\PlayerRankings;
-use Raphaelb\ClashOfApi\Objects\Rankings;
 use Raphaelb\ClashOfApi\Objects\WarLog;
 use Raphaelb\ClashOfApi\Objects\League;
 use Raphaelb\ClashOfApi\Objects\Location;
+use Raphaelb\ClashOfApi\Objects\Rankings;
+use Raphaelb\ClashOfApi\Objects\ClanRankings;
+use Raphaelb\ClashOfApi\Objects\PlayerRankings;
 
 class Clash
 {
@@ -70,20 +70,16 @@ class Clash
      * @throws \Exception
      */
     public function sendRequest($method, $endpoint){
-        try {
-            $request = $this->getHttpClient()
-                ->request($method, $endpoint, ['headers' => [
-                    'Accept' => 'application/json',
-                    'authorization' => 'Bearer ' .
-                        $this->getAccessToken()
-                    ]
-                ]);
-            $data = json_decode($request->getBody()->getContents(), true);
+        $request = $this->getHttpClient()
+            ->request($method, $endpoint, ['headers' => [
+                'Accept' => 'application/json',
+                'authorization' => 'Bearer ' .
+                    $this->getAccessToken()
+                ]
+            ]);
+        $data = json_decode($request->getBody()->getContents(), true);
 
-            return $this->respondToArray($data);
-        } catch (\Exception $e) {
-            throw new \Exception($e->getMessage());
-        }
+        return $this->respondToArray($data);
     }
 
     /**
@@ -99,9 +95,9 @@ class Clash
     }
 
     /**
-     * getHttpClient method
+     * Get the http client instance.
      *
-     * @return \GuzzleHttp\Client
+     * @return Client
      */
     public function getHttpClient()
     {
@@ -137,27 +133,27 @@ class Clash
      * after (integer)
      * before (integer)
      *
-     * @param $input array string
+     * @param $input array|string
      * @return Collection
      */
     public function getClans($input){
         $input = is_array($input) ? $input : ['name' => $input];
 
         $data = $this->sendRequest('GET', 'clans?' . http_build_query($input));
-        $clans = [];
+        $clans = collect();
 
         foreach($data as $clan){
-            $clans[] = new Clan($clan);
+            $clans->push(new Clan($clan));
         };
 
-        return collect($clans);
+        return $clans;
     }
 
     /**
      * Get clan by given Clan Tag.
      *
      * @param $tag
-     * @return \Raphaelb\ClashOfApi\Objects\Clan
+     * @return Clan
      */
     public function getClan($tag){
         $data = $this->sendRequest('GET', 'clans/' . urlencode($tag));
@@ -186,13 +182,13 @@ class Clash
      */
     public function getLocations(){
         $data = $this->sendRequest('GET', 'locations');
-        $locations = [];
+        $locations = collect();
 
         foreach($data as $location) {
-            $locations[] = new Location($location);
+            $locations->push(new Location($location));
         }
 
-        return collect($locations);
+        return $locations;
     }
 
     /**

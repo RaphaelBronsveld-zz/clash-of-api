@@ -13,7 +13,6 @@ namespace Raphaelb\ClashOfApi\Objects;
 
 class MemberList extends BaseObject
 {
-
     /**
      * Class relations.
      *

@@ -34,7 +34,7 @@ public function getClans(){
     // Accessing data property so we won't have to do that in our view file. 
     // Looks cleaner that way.
     $clans = clash()->getClans(['name' => 'test',
-                                        'limit' => '10'])->data;
+                                        'limit' => '10']);
     
     return view('yourview', compact('clans'));
 }
@@ -81,6 +81,7 @@ Just depends on your needs.
 
 For all the methods please take a look at the Raphaelb\ClashOfApi\Clash class.
 ```
+
 ### Copyright/License
 Copyright 2016 [Raphael Bronsveld](https://github.com/RaphaelBronsveld) - [MIT Licensed](http://RaphaelBronsveld.mit-license.org) 
 

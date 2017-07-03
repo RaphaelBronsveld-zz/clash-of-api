@@ -14,7 +14,6 @@ namespace Raphaelb\ClashOfApi\Objects;
 use Illuminate\Support\Collection;
 
 abstract class BaseObject extends Collection {
-
     /**
      * AbstractResponse constructor.
      *
@@ -36,14 +35,14 @@ abstract class BaseObject extends Collection {
     /**
      * Map property relatives to appropriate objects.
      *
-     * @return array|void
+     * @return array
      */
     public function mapRelatives()
     {
         $relations = collect($this->relations());
 
         if ($relations->isEmpty()) {
-            return false;
+            return [];
         }
 
         return $this->items = collect($this->all())

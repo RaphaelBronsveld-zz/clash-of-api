@@ -13,7 +13,6 @@ namespace Raphaelb\ClashOfApi\Objects;
 
 class Match extends BaseObject
 {
-
     /**
      * Class relations.
      *
