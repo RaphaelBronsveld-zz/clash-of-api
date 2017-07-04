@@ -38,5 +38,15 @@
     "scripts": {
         "test": "phpunit",
         "cs": "phpcs --standard=psr2 src/"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Raphaelb\\ClashOfApi\\ClashServiceProvider"
+            ],
+            "aliases": {
+                "Clash": "Raphaelb\\ClashOfApi\\Facades\\Clash"
+            }
+        }
     }
 }

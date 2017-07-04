@@ -58,8 +58,7 @@ class Clash
     public function sendRequest($method, $endpoint)
     {
         $request = $this->getHttpClient()
-            ->request(
-                $method, $endpoint, ['headers' => [
+            ->request($method, $endpoint, ['headers' => [
                 'Accept' => 'application/json',
                 'authorization' => 'Bearer ' .
                     $this->getAccessToken()
