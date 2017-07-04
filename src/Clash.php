@@ -1,6 +1,5 @@
 <?php
-
-/*
+/**
  * This file is part of the Clash Of API package.
  *
  * Raphael Bronsveld <raphaelbronsveld@outlook.com>
@@ -12,44 +11,30 @@
 namespace Raphaelb\ClashOfApi;
 
 use GuzzleHttp\Client;
-use Illuminate\Support\Collection;
-use Raphaelb\ClashOfApi\Objects\Clan;
-use Raphaelb\ClashOfApi\Objects\Player;
-use Raphaelb\ClashOfApi\Objects\WarLog;
-use Raphaelb\ClashOfApi\Objects\League;
-use Raphaelb\ClashOfApi\Objects\Location;
-use Raphaelb\ClashOfApi\Objects\Rankings;
-use Raphaelb\ClashOfApi\Objects\ClanRankings;
-use Raphaelb\ClashOfApi\Objects\PlayerRankings;
+use Raphaelb\ClashOfApi\Traits\ProvideClanRequests;
+use Raphaelb\ClashOfApi\Traits\ProvideLeagueRequests;
+use Raphaelb\ClashOfApi\Traits\ProvideLocationRequests;
+use Raphaelb\ClashOfApi\Traits\ProvidePlayerRequests;
 
 class Clash
 {
-    protected $accesstoken;
+    use ProvideClanRequests;
+    use ProvideLeagueRequests;
+    use ProvidePlayerRequests;
+    use ProvideLocationRequests;
 
+    protected $accessToken;
+    /**
+     * @var Client
+     */
     protected $httpClient;
 
     /**
      * Clash class constructor.
      */
-    public function __construct(){
-        $this->setAccessToken();
-    }
-
-    /**
-     * Setting Accesstoken
-     */
-    public function setAccessToken(){
-        $this->accesstoken = config('clash.key');
-    }
-
-    /**
-     * getAccessToken method
-     *
-     * @return string
-     */
-    public function getAccessToken()
+    public function __construct()
     {
-        return $this->accesstoken;
+        $this->setAccessToken();
     }
 
     /**
@@ -57,21 +42,24 @@ class Clash
      *
      * @return string
      */
-    public function baseUrl(){
+    public function baseUrl()
+    {
         return 'https://api.clashofclans.com/v1/';
     }
 
     /**
      * Sends a request to the Clash Api and returns the response.
      *
-     * @param $method
-     * @param $endpoint
+     * @param  $method
+     * @param  $endpoint
      * @return array
      * @throws \Exception
      */
-    public function sendRequest($method, $endpoint){
+    public function sendRequest($method, $endpoint)
+    {
         $request = $this->getHttpClient()
-            ->request($method, $endpoint, ['headers' => [
+            ->request(
+                $method, $endpoint, ['headers' => [
                 'Accept' => 'application/json',
                 'authorization' => 'Bearer ' .
                     $this->getAccessToken()
@@ -86,7 +74,7 @@ class Clash
      * Make sure we respond properly to the given param.
      * Just return an array with results you can loop.
      *
-     * @param $array
+     * @param  $array
      * @return mixed
      */
     public function respondToArray(array $array)
@@ -101,8 +89,7 @@ class Clash
      */
     public function getHttpClient()
     {
-        if($this->httpClient === null)
-        {
+        if ($this->httpClient === null) {
             $this->httpClient = new Client(['base_uri' => $this->baseUrl()]);
         }
 
@@ -110,148 +97,20 @@ class Clash
     }
 
     /**
-     * Get leagues.
-     *
-     * @return \Raphaelb\ClashOfApi\Objects\League
+     * Setting Accesstoken
      */
-    public function getLeagues(){
-        $response =  $this->sendRequest('GET', 'leagues');
-        return new League($response);
-    }
-
-    /**
-     * Get Clans by Search input.
-     *
-     * name (string)
-     * warFrequency (string, {"always", "moreThanOncePerWeek", "oncePerWeek", "lessThanOncePerWeek", "never", "unknown"})
-     * locationId (integer)
-     * minMembers (integer)
-     * maxMembers (integer)
-     * minClanPoints (integer)
-     * minClanLevel (integer)
-     * limit (integer)
-     * after (integer)
-     * before (integer)
-     *
-     * @param $input array|string
-     * @return Collection
-     */
-    public function getClans($input){
-        $input = is_array($input) ? $input : ['name' => $input];
-
-        $data = $this->sendRequest('GET', 'clans?' . http_build_query($input));
-        $clans = collect();
-
-        foreach($data as $clan){
-            $clans->push(new Clan($clan));
-        };
-
-        return $clans;
-    }
-
-    /**
-     * Get clan by given Clan Tag.
-     *
-     * @param $tag
-     * @return Clan
-     */
-    public function getClan($tag){
-        $data = $this->sendRequest('GET', 'clans/' . urlencode($tag));
-        return new Clan($data);
-    }
-
-    /**
-     * Get Warlog by given clan object or tag.
-     *
-     * @param $tag
-     * @return WarLog
-     */
-    public function getWarLog($tag)
+    public function setAccessToken()
     {
-        $tag = $tag instanceof Clan ? $tag->getTag() : $tag;
-
-        $data = $this->sendRequest('GET', 'clans/'.urlencode($tag).'/warlog');
-
-        return new WarLog($data);
+        $this->accessToken = config('clash.key');
     }
 
     /**
-     * Get locations.
+     * getAccessToken method
      *
-     * @return Collection
+     * @return string
      */
-    public function getLocations(){
-        $data = $this->sendRequest('GET', 'locations');
-        $locations = collect();
-
-        foreach($data as $location) {
-            $locations->push(new Location($location));
-        }
-
-        return $locations;
-    }
-
-    /**
-     * Get location by given id.
-     *
-     * @param $id
-     *
-     * @return \Raphaelb\ClashOfApi\Objects\Location
-     */
-    public function getLocation($id){
-        $data = $this->sendRequest('GET', 'locations/'.$id);
-        return new Location($data);
-    }
-
-    /**
-     * Get location based rankinglist for players.
-     *
-     * @param $location
-     * @return PlayerRankings
-     */
-    public function getPlayerRankings($location)
+    public function getAccessToken()
     {
-        $data = $this->getRankingsByType($location, 'players');
-
-        return new PlayerRankings($data);
-    }
-
-    /**
-     * Get location based rankinglist for clans.
-     *
-     * @param $location
-     * @return ClanRankings
-     */
-    public function getClanRankings($location)
-    {
-        $data = $this->getRankingsByType($location, 'clans');
-
-        return new ClanRankings($data);
-    }
-
-    /**
-     * Get rankingdata by given location and type.
-     *
-     * @param $location
-     * @param $type
-     * @return array
-     */
-    public function getRankingsByType($location, $type)
-    {
-        $id = $location instanceof Location ? $location->id : $location;
-
-        return $this->sendRequest('GET', 'locations/'.$id.'/rankings/'.$type);
-    }
-
-    /**
-     * Get player by given tag.
-     *
-     * @param $tag
-     * @return Player
-     */
-    public function getPlayer($tag)
-    {
-        $data = $this->sendRequest('GET', 'players/'.urlencode($tag));
-        return new Player($data);
+        return $this->accessToken;
     }
 }

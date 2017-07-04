@@ -1,6 +1,5 @@
 <?php
-
-/*
+/**
  * This file is part of the Clash Of API package.
  *
  * Raphael Bronsveld <raphaelbronsveld@outlook.com>
@@ -19,12 +18,16 @@ class ClashOfClansController extends Controller
      * Example to be found at yoururl.com/clashofclans. For more
      * please check the examples.md file in the src folder.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\View\View
      */
     public function index()
     {
-        $clans = clash()->getClans(['name' => 'test',
-                                    'limit' => '3']);
+        $clans = clash()->getClans(
+            [
+                'name' => 'test',
+                'limit' => '3'
+            ]
+        );
 
         return view('clashofapi::clans', compact('clans'));
     }

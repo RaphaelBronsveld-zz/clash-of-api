@@ -2,10 +2,8 @@
 <html>
 <head>
     <title>Laravel Clash Of API</title>
-
     <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <style>
         html, body {
             height: 100%;

@@ -1,6 +1,5 @@
 <?php
-
-/*
+/**
  * This file is part of the Clash Of API package.
  *
  * Raphael Bronsveld <raphaelbronsveld@outlook.com>
@@ -28,7 +27,7 @@ class WarLog extends BaseObject
     /**
      * Return the total wins.
      *
-     * @param null $teamSize
+     * @param  null $teamSize
      * @return int
      */
     public function getWinsCount($teamSize = null)
@@ -39,7 +38,7 @@ class WarLog extends BaseObject
     /**
      * Return the total losses.
      *
-     * @param null $teamSize
+     * @param  null $teamSize
      * @return int
      */
     public function getLossesCount($teamSize = null)
@@ -54,13 +53,17 @@ class WarLog extends BaseObject
      */
     protected function filterByMatchAttributes($type, $teamSize = null)
     {
-        $matches = $this->filter(function($match) use ($type) {
-            return $match->result == $type;
-        });
+        $matches = $this->filter(
+            function ($match) use ($type) {
+                return $match->result == $type;
+            }
+        );
 
-        return isset($teamSize) ? $matches->filter(function($match) use ($teamSize) {
-            return $match->teamSize == $teamSize;
-        })->count() : $matches->count();
+        return isset($teamSize) ? $matches->filter(
+            function ($match) use ($teamSize) {
+                return $match->teamSize == $teamSize;
+            }
+        )->count() : $matches->count();
     }
 
     /**

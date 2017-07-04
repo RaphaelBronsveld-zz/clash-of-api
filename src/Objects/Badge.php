@@ -1,6 +1,5 @@
 <?php
-
-/*
+/**
  * This file is part of the Clash Of API package.
  *
  * Raphael Bronsveld <raphaelbronsveld@outlook.com>

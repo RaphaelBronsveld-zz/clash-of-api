@@ -1,6 +1,5 @@
 <?php
-
-/*
+/**
  * This file is part of the Clash Of API package.
  *
  * Raphael Bronsveld <raphaelbronsveld@outlook.com>
@@ -13,7 +12,8 @@ namespace Raphaelb\ClashOfApi\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class Clash extends Facade {
+class Clash extends Facade
+{
     /**
      * @return string
      */

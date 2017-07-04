@@ -1,6 +1,5 @@
 <?php
-
-/*
+/**
  * This file is part of the Clash Of API package.
  *
  * Raphael Bronsveld <raphaelbronsveld@outlook.com>
@@ -13,7 +12,8 @@ namespace Raphaelb\ClashOfApi\Objects;
 
 use Illuminate\Support\Collection;
 
-abstract class BaseObject extends Collection {
+abstract class BaseObject extends Collection
+{
     /**
      * AbstractResponse constructor.
      *
@@ -46,23 +46,25 @@ abstract class BaseObject extends Collection {
         }
 
         return $this->items = collect($this->all())
-            ->map(function ($value, $key) use ($relations) {
-                if(is_int($key) && $relations->get('indexed')) {
-                    if(is_array($value)) {
-                        $className = $relations->get('indexed');
+            ->map(
+                function ($value, $key) use ($relations) {
+                    if(is_int($key) && $relations->get('indexed')) {
+                        if(is_array($value)) {
+                            $className = $relations->get('indexed');
+
+                            return new $className($value);
+                        }
+                    }
+                    if ($relations->has($key)) {
+
+                        $className = $relations->get($key);
 
                         return new $className($value);
                     }
+
+                    return $value;
                 }
-                if ($relations->has($key)) {
-
-                    $className = $relations->get($key);
-
-                    return new $className($value);
-                }
-
-                return $value;
-            })
+            )
             ->all();
     }
 

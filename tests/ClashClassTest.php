@@ -8,19 +8,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Raphaelb\ClashOfApi\Objects;
+namespace Raphaelb\ClashOfApi;
 
-class PlayerRankings extends BaseObject
+use Orchestra\Testbench\TestCase;
+
+class ClashClassTest extends TestCase
 {
-    /**
-     * Class relations.
-     *
-     * @return array
-     */
-    public function relations()
+    public function testBasicInstance()
     {
-        return [
-            'indexed' => Player::class
-        ];
+        $instance = new Clash();
+        $this->assertInstanceOf(Clash::class, $instance);
     }
 }

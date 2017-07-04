@@ -1,6 +1,5 @@
 <?php
-
-/*
+/**
  * This file is part of the Clash Of API package.
  *
  * Raphael Bronsveld <raphaelbronsveld@outlook.com>
@@ -75,16 +74,20 @@ class Clan extends BaseObject
      */
     public function getLeaders()
     {
-        return $this->getMembers()->filter(function($member, $key) {
+        return $this->getMembers()->filter(
+            function ($member, $key) {
                 return $member->role == 'leader' || $member->role == 'coLeader';
-        });
+            }
+        );
     }
 
     /**
-     * // TODO: Refactor
+     * // TODO: Refactor into custom exception
      */
     protected function generateInvalidMethodException()
     {
-        throw new \InvalidArgumentException('getMembers() on a Clan instance from a getClans method is invalid.');
+        throw new \InvalidArgumentException(
+            'getMembers() on a Clan instance from a getClans method is invalid.'
+        );
     }
 }
