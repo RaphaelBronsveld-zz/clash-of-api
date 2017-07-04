@@ -48,17 +48,14 @@ abstract class BaseObject extends Collection
         return $this->items = collect($this->all())
             ->map(
                 function ($value, $key) use ($relations) {
-                    if(is_int($key) && $relations->get('indexed')) {
-                        if(is_array($value)) {
+                    if (is_int($key) && $relations->get('indexed')) {
+                        if (is_array($value)) {
                             $className = $relations->get('indexed');
-
                             return new $className($value);
                         }
                     }
                     if ($relations->has($key)) {
-
                         $className = $relations->get($key);
-
                         return new $className($value);
                     }
 

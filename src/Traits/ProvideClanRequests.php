@@ -19,7 +19,7 @@ trait ProvideClanRequests
      * Get Clans by Search input.
      *
      * name (string)
-     * warFrequency (string, {"always", "moreThanOncePerWeek", "oncePerWeek", "lessThanOncePerWeek", "never", "unknown"})
+     * warFrequency (string)
      * locationId (integer)
      * minMembers (integer)
      * maxMembers (integer)

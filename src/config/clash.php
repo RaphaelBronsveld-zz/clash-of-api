@@ -12,4 +12,3 @@ return [
     */
     'key' => env('CLASH_KEY', '')
 ];
-
