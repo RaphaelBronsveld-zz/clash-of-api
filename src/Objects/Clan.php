@@ -10,6 +10,9 @@
 
 namespace Raphaelb\ClashOfApi\Objects;
 
+use Illuminate\Support\Collection;
+use Raphaelb\ClashOfApi\Exceptions\NoMemberListException;
+
 class Clan extends BaseObject
 {
     /**
@@ -38,13 +41,19 @@ class Clan extends BaseObject
 
     /**
      * Returns the member list by given clan object.
+     * Cannot be called on clans retrieved
+     * from the getClans() method.
      *
      * @return Collection
+     * @throws NoMemberListException
      */
     public function getMembers()
     {
-        return $this->has('memberList') ?
-            $this->memberList : $this->generateInvalidMethodException();
+        if (!$this->has('memberList')) {
+            throw new NoMemberListException('Clan instance has no memberlist property.');
+        } else {
+            return $this->get('memberList');
+        }
     }
 
     /**
@@ -64,13 +73,13 @@ class Clan extends BaseObject
      */
     public function getMemberCount()
     {
-        return (int)$this->get('members');
+        return $this->get('members');
     }
 
     /**
      * Get all the leaders by given clan object.
      *
-     * @return array
+     * @return Collection
      */
     public function getLeaders()
     {
@@ -78,16 +87,6 @@ class Clan extends BaseObject
             function ($member, $key) {
                 return $member->role == 'leader' || $member->role == 'coLeader';
             }
-        );
-    }
-
-    /**
-     * // TODO: Refactor into custom exception
-     */
-    protected function generateInvalidMethodException()
-    {
-        throw new \InvalidArgumentException(
-            'getMembers() on a Clan instance from a getClans method is invalid.'
         );
     }
 }

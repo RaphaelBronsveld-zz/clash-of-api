@@ -23,4 +23,16 @@ class League extends BaseObject
             //'location'          => Location::class
         ];
     }
+
+    /**
+     * Return the icon url based on the type.
+     * Types can be tiny, small or medium.
+     *
+     * @param string $type
+     * @return string
+     */
+    public function getIcon($type = '')
+    {
+        return $this->get('iconUrls')[$type];
+    }
 }

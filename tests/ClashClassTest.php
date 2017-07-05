@@ -8,15 +8,24 @@
  * file that was distributed with this source code.
  */
 
-namespace Raphaelb\ClashOfApi;
+namespace Raphaelb\ClashOfApi\Tests;
 
-use Orchestra\Testbench\TestCase;
+use GuzzleHttp\Exception\ClientException;
+use Raphaelb\ClashOfApi\Clash;
 
 class ClashClassTest extends TestCase
 {
-    public function testBasicInstance()
+    /** @test */
+    public function correctInstanceGetsReturned()
     {
         $instance = new Clash();
         $this->assertInstanceOf(Clash::class, $instance);
+    }
+
+    /** @test */
+    public function exceptionGetsThrownWithoutAccessToken()
+    {
+        $this->expectException(ClientException::class);
+        $res = (new Clash())->sendRequest('GET', 'clans/');
     }
 }

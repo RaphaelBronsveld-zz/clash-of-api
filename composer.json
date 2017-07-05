@@ -21,7 +21,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            ":vendor\\:package_name\\": "tests"
+            "Raphaelb\\ClashOfApi\\Tests\\": "tests"
         }
     },
     "require": {

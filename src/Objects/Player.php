@@ -25,4 +25,34 @@ class Player extends BaseObject
             'achievements'      => AchievementList::class
         ];
     }
+
+    /**
+     * Return the League for the current Player.
+     *
+     * @return League
+     */
+    public function getLeague()
+    {
+        return $this->get('league');
+    }
+
+    /**
+     * Return the clan for the current Player.
+     *
+     * @return Clan
+     */
+    public function getClan()
+    {
+        return $this->get('clan');
+    }
+
+    /**
+     * Return the Achievement List for the current Player.
+     *
+     * @return League
+     */
+    public function getAchievements()
+    {
+        return $this->get('achievements');
+    }
 }
