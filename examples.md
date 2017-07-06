@@ -1,10 +1,5 @@
 ### In-depth Examples
 ```php 
-/**
- *  This api is simply building up the right url to get the right object.
- *  With that object you can do whatever you want. If you want more functionality please contact me.
- */
- 
 public function getClanLeaders($id)
 {
     $clash = new Clash();
@@ -62,9 +57,52 @@ $clan = \Clash::getClan('LGRQPCJG');
 {{ $clan->members }}
 
 Just depends on your needs.
-
-For all the methods please take a look at the Raphaelb\ClashOfApi\Clash class.
 ```
+### Methods
+For more methods just PR away.
+#### Clan
+```php
+$clan->getTag();
+$clan->getMembers();
+$clan->getMembers();
+$clan->getLocation();
+$clan->getMembersCount();
+$clan->getLeaders();
+```
+
+#### Player
+```php
+$player->getLeague();
+$player->getClan();
+$player->getAchievements();
+```
+
+#### League
+```php
+$league->getIcon('small'); // small, tiny, medium
+```
+
+#### Warlog
+```php
+$warlog->getWinCount();
+$warlog->getLoseCount();
+$warlog->getMatchDates();
+```
+
+#### Match
+```php
+$match->getClan();
+$match->getOpponent();
+```
+
+### Random Examples
+
+```php
+$player = $clan->getLeaders()->first();
+$lastOpponent = $warlog->last()->getOpponent();
+$icon = $player->getLeague()->getIcon('medium');
+```
+
 
 ### Copyright/License
 Copyright 2017 [Raphael Bronsveld](https://github.com/RaphaelBronsveld) - [MIT Licensed](http://RaphaelBronsveld.mit-license.org) 

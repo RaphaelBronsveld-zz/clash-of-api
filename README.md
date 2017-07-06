@@ -36,24 +36,8 @@ public function someMethodBeingCalled()
 }
 ```
 
-##### General Methods
-```php
-public function getLeagues();
-public function getClan($tag);
-public function getClans($params);
-public function getWarlog($tag);
-public function getLocation($id);
-public function getLocations();
-public function getPlayerRankings($location);
-public function getClanRankings($location);
-public function getMemberList();
-public function getMemberCount();
-public function getLeaders();
-public function getPlayer($tag)
-``` 
-
 ##### In-depth examples
-Please check the examples.md file located in the src folder.
+Please check the examples.md file.
 
 ### Copyright/License
 Copyright 2017 [Raphael Bronsveld](https://github.com/RaphaelBronsveld) - [MIT Licensed](http://RaphaelBronsveld.mit-license.org) 

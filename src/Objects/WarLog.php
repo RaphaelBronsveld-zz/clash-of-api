@@ -30,7 +30,7 @@ class WarLog extends BaseObject
      * @param  null $teamSize
      * @return int
      */
-    public function getWinsCount($teamSize = null)
+    public function getWinCount($teamSize = null)
     {
         return $this->filterByMatchAttributes('win', $teamSize);
     }
@@ -41,7 +41,7 @@ class WarLog extends BaseObject
      * @param  null $teamSize
      * @return int
      */
-    public function getLossesCount($teamSize = null)
+    public function getLoseCount($teamSize = null)
     {
         return $this->filterByMatchAttributes('lose', $teamSize);
     }
