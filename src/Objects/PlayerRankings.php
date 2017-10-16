@@ -1,6 +1,5 @@
 <?php
-
-/*
+/**
  * This file is part of the Clash Of API package.
  *
  * Raphael Bronsveld <raphaelbronsveld@outlook.com>
@@ -9,19 +8,19 @@
  * file that was distributed with this source code.
  */
 
-namespace Raphaelb\ClashOfApi\League;
+namespace Raphaelb\ClashOfApi\Objects;
 
-use Raphaelb\ClashOfApi\AbstractResponse;
-
-class League extends AbstractResponse
+class PlayerRankings extends BaseObject
 {
     /**
-     * League constructor.
+     * Class relations.
      *
-     * @param $data
+     * @return array
      */
-    public function __construct($data)
+    public function relations()
     {
-        $this->data = $this->respondToArray($data);
+        return [
+            'indexed' => Player::class
+        ];
     }
 }

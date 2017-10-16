@@ -8,17 +8,17 @@
  * file that was distributed with this source code.
  */
 
-namespace Raphaelb\ClashOfApi\Facades;
+namespace Raphaelb\ClashOfApi\Objects;
 
-use Illuminate\Support\Facades\Facade;
-
-class Clash extends Facade
+class Achievement extends BaseObject
 {
     /**
-     * @return string
+     * Class relations.
+     *
+     * @return array
      */
-    protected static function getFacadeAccessor()
+    public function relations()
     {
-        return 'clash';
+        //
     }
 }
