@@ -1,7 +1,5 @@
 ![Laravel logo](http://laravel.com/assets/img/laravel-logo.png)  Clash Of API
 ========================
-
-| Clash of API | v3.0 |
   
 **Laravel** package providing additional functionality to the official Clash Of Clans API.
 
@@ -39,7 +37,7 @@ public function someMethodBeingCalled()
 ##### In-depth examples
 Please check the examples.md file.
 
-### Copyright/License
-Copyright 2017 [Raphael Bronsveld](https://github.com/RaphaelBronsveld) - [MIT Licensed](http://RaphaelBronsveld.mit-license.org) 
+### License
+[Raphael Bronsveld](https://github.com/RaphaelBronsveld) - [MIT Licensed](http://RaphaelBronsveld.mit-license.org) 
 
 Suggestions? E-mail me at <raphaelbronsveld@outlook.com>
